@@ -10,27 +10,42 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
             if (form.hasAttribute("data-registration-form")) {
                 const name = form.elements.name.value.trim();
+                const email = form.elements.email.value.trim().toLowerCase();
+                const role = form.elements.role.value;
+                const accounts = JSON.parse(localStorage.getItem("gameArenaAccounts") || "[]");
+                if (accounts.some((account) => account.email === email)) {
+                    window.alert("An account with this email already exists. Please log in instead.");
+                    return;
+                }
+                accounts.push({ name, email, role });
+                localStorage.setItem("gameArenaAccounts", JSON.stringify(accounts));
+                const destination = role === "admin" ? "admin.html" : "user.html";
                 localStorage.setItem("gameArenaName", name);
-                localStorage.setItem("gameArenaRole", form.elements.role.value);
+                localStorage.setItem("gameArenaRole", role);
+                localStorage.setItem("gameArenaEmail", email);
                 document.querySelector(".auth-container").innerHTML = `
                     <section class="registration-success" role="status">
                         <div class="success-mark" aria-hidden="true">✓</div>
                         <p class="eyebrow">ACCOUNT CREATED</p>
                         <h1>Registered successfully!</h1>
                         <p>Welcome to GameArena, <strong></strong>.</p>
-                        <a class="auth-button success-link" href="gaming-portal.html">View Portal</a>
+                        <a class="auth-button success-link" href="${destination}">Open ${role === "admin" ? "admin" : "player"} dashboard</a>
                     </section>`;
                 document.querySelector(".registration-success strong").textContent = name;
                 return;
             }
-            const destination = form.dataset.destination;
             const role = form.elements.role?.value;
-            const enteredName = form.elements.name?.value.trim();
-            const email = form.elements.email?.value.trim();
-            const displayName = enteredName || (email ? email.split("@")[0] : "Player");
-            localStorage.setItem("gameArenaName", displayName);
-            localStorage.setItem("gameArenaRole", role || "user");
-            window.location.href = destination || (role === "admin" ? "admin.html" : "user.html");
+            const email = form.elements.email?.value.trim().toLowerCase();
+            const accounts = JSON.parse(localStorage.getItem("gameArenaAccounts") || "[]");
+            const account = accounts.find((savedAccount) => savedAccount.email === email && savedAccount.role === role);
+            if (!account) {
+                window.alert("No account was found for this email and role. Please register first.");
+                return;
+            }
+            localStorage.setItem("gameArenaName", account.name);
+            localStorage.setItem("gameArenaRole", account.role);
+            localStorage.setItem("gameArenaEmail", account.email);
+            window.location.href = role === "admin" ? "admin.html" : "user.html";
         });
     });
 
@@ -61,16 +76,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const meta = document.createElement("p");
             meta.textContent = `${tournament.game} · ${tournament.date}`;
             details.append(title, meta);
-            const remove = document.createElement("button");
-            remove.className = "small-button";
-            remove.type = "button";
-            remove.textContent = "Remove";
-            remove.addEventListener("click", () => {
-                tournaments.splice(index, 1);
-                localStorage.setItem("gameArenaTournaments", JSON.stringify(tournaments));
-                renderTournaments();
-            });
-            item.append(details, remove);
+            item.append(details);
+            if (tournamentForm) {
+                const remove = document.createElement("button");
+                remove.className = "small-button";
+                remove.type = "button";
+                remove.textContent = "Remove";
+                remove.addEventListener("click", () => {
+                    tournaments.splice(index, 1);
+                    localStorage.setItem("gameArenaTournaments", JSON.stringify(tournaments));
+                    renderTournaments();
+                });
+                item.append(remove);
+            }
             tournamentList.append(item);
         });
         document.querySelectorAll("[data-tournament-count]").forEach((count) => {
