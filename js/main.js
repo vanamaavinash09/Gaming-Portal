@@ -11,13 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (form.hasAttribute("data-registration-form")) {
                 const name = form.elements.name.value.trim();
                 const email = form.elements.email.value.trim().toLowerCase();
+                const password = form.elements.password.value;
                 const role = form.elements.role.value;
                 const accounts = JSON.parse(localStorage.getItem("gameArenaAccounts") || "[]");
                 if (accounts.some((account) => account.email === email)) {
                     window.alert("An account with this email already exists. Please log in instead.");
                     return;
                 }
-                accounts.push({ name, email, role });
+                accounts.push({ name, email, role, password });
                 localStorage.setItem("gameArenaAccounts", JSON.stringify(accounts));
                 const destination = role === "admin" ? "admin.html" : "user.html";
                 localStorage.setItem("gameArenaName", name);
@@ -36,10 +37,19 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const role = form.elements.role?.value;
             const email = form.elements.email?.value.trim().toLowerCase();
+            const password = form.elements.password?.value;
             const accounts = JSON.parse(localStorage.getItem("gameArenaAccounts") || "[]");
             const account = accounts.find((savedAccount) => savedAccount.email === email && savedAccount.role === role);
             if (!account) {
                 window.alert("No account was found for this email and role. Please register first.");
+                return;
+            }
+            if (!account.password) {
+                window.alert("This account does not have a saved password. Please register a new account.");
+                return;
+            }
+            if (account.password !== password) {
+                window.alert("Incorrect password. Please try again.");
                 return;
             }
             localStorage.setItem("gameArenaName", account.name);
