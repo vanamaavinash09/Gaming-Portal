@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create a GameArena account.">
+    <title>GameArena | Create Account</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="auth-page">
+    <main class="auth-container">
+        <header class="auth-heading">
+            <a class="auth-logo" href="gaming-portal.html">Game<span>Arena</span></a>
+            <h1>Create your account</h1>
+            <p>Join GameArena and get ready to compete.</p>
+        </header>
+        <section class="auth-card auth-single-card" aria-labelledby="register-heading">
+            <h2 id="register-heading">Sign up</h2>
+            <form class="redirect-form" data-registration-form>
+                <label for="register-name">Name</label>
+                <input id="register-name" name="name" type="text" placeholder="Your name" required>
+                <label for="register-email">Email</label>
+                <input id="register-email" name="email" type="email" placeholder="you@example.com" required>
+                <label for="register-password">Password</label>
+                <input id="register-password" name="password" type="password" placeholder="Create a password" required>
+                <label for="register-role">Create account as</label>
+                <select id="register-role" name="role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button class="auth-button" type="submit">Create account</button>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="login.html">Sign in</a></p>
+        </section>
+        <p class="auth-note">Demo mode: account details are stored in this browser.</p>
+    </main>
+    <script src="../js/main.js"></script>
+</body>
+</html>

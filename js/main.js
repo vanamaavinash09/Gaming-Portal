@@ -62,6 +62,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const playerName = document.querySelector("[data-player-name]");
     if (playerName) playerName.textContent = localStorage.getItem("gameArenaName") || "Player";
 
+    const authAction = document.querySelector("[data-auth-action]");
+    const updateAuthAction = () => {
+        if (!authAction) return;
+        const isLoggedIn = Boolean(localStorage.getItem("gameArenaName") && localStorage.getItem("gameArenaEmail"));
+        authAction.textContent = isLoggedIn ? "Logout" : "Login / Sign up";
+        authAction.href = isLoggedIn ? "#home" : "login.html";
+        authAction.setAttribute("aria-label", isLoggedIn ? "Log out" : "Login or sign up");
+    };
+    updateAuthAction();
+    if (authAction) {
+        authAction.addEventListener("click", (event) => {
+            if (authAction.textContent !== "Logout") return;
+            event.preventDefault();
+            ["gameArenaName", "gameArenaRole", "gameArenaEmail"].forEach((key) => localStorage.removeItem(key));
+            updateAuthAction();
+        });
+    }
+
     const gamesPlayed = document.querySelector("[data-games-played]");
     if (gamesPlayed) gamesPlayed.textContent = localStorage.getItem("gameArenaGamesPlayed") || "0";
 

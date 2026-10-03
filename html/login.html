@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Log in to your GameArena account.">
+    <title>GameArena | Login</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="auth-page">
+    <main class="auth-container">
+        <header class="auth-heading">
+            <a class="auth-logo" href="gaming-portal.html">Game<span>Arena</span></a>
+            <h1>Welcome back</h1>
+            <p>Log in to continue to GameArena.</p>
+        </header>
+        <section class="auth-card auth-single-card" aria-labelledby="login-heading">
+            <h2 id="login-heading">Login</h2>
+            <form class="redirect-form">
+                <label for="login-email">Email</label>
+                <input id="login-email" name="email" type="email" placeholder="you@example.com" required>
+                <label for="login-password">Password</label>
+                <input id="login-password" name="password" type="password" placeholder="Enter your password" required>
+                <label for="login-role">Continue as</label>
+                <select id="login-role" name="role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button class="auth-button" type="submit">Sign in</button>
+            </form>
+            <p class="auth-switch">New to GameArena? <a href="signup.html">Sign up / Create account</a></p>
+        </section>
+        <p class="auth-note">Demo mode: account details are stored in this browser.</p>
+    </main>
+    <script src="../js/main.js"></script>
+</body>
+</html>

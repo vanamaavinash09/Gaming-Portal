@@ -3,56 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Log in or register for GameArena.">
-    <title>GameArena | Login and Register</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <meta http-equiv="refresh" content="0; url=gaming-portal.html">
+    <title>GameArena</title>
+    <script>window.location.replace("gaming-portal.html");</script>
 </head>
-<body class="auth-page">
-    <main class="auth-container">
-        <header class="auth-heading">
-            <a class="auth-logo" href="index.html">Game<span>Arena</span></a>
-            <h1>Welcome to GameArena</h1>
-            <p>Log in or create an account to continue.</p>
-        </header>
-
-        <div class="auth-grid">
-            <section class="auth-card" aria-labelledby="login-heading">
-                <h2 id="login-heading">Login</h2>
-                <form class="redirect-form">
-                    <label for="login-email">Email</label>
-                    <input id="login-email" name="email" type="email" placeholder="you@example.com" required>
-                    <label for="login-password">Password</label>
-                    <input id="login-password" name="password" type="password" placeholder="Enter your password" required>
-                    <label for="login-role">Continue as</label>
-                    <select id="login-role" name="role">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                    <button class="auth-button" type="submit">Login</button>
-                </form>
-            </section>
-
-            <section class="auth-card" aria-labelledby="register-heading">
-                <h2 id="register-heading">Register</h2>
-                <form class="redirect-form" data-registration-form>
-                    <label for="register-name">Name</label>
-                    <input id="register-name" name="name" type="text" placeholder="Your name" required>
-                    <label for="register-email">Email</label>
-                    <input id="register-email" name="email" type="email" placeholder="you@example.com" required>
-                    <label for="register-password">Password</label>
-                    <input id="register-password" name="password" type="password" placeholder="Create a password" required>
-                    <label for="register-role">Create account as</label>
-                    <select id="register-role" name="role">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                    <button class="auth-button" type="submit">Create account</button>
-                </form>
-            </section>
-        </div>
-        <p class="auth-note">Demo mode: name, email, and role are saved in this browser. Passwords are not stored or verified.</p>
-    </main>
-    <script src="../js/main.js"></script>
+<body>
+    <p>Opening GameArena… <a href="gaming-portal.html">Continue to the gaming portal</a></p>
 </body>
 </html>
